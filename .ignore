@@ -1,0 +1,9 @@
+Readme_draft.md
+catalog-db.db
+client_secrets.json
+pg_config.sh
+Vagrantfile
+catalog-app.pyc
+catalogDB_setup.pyc
+catalogDBpreLOAD.pyc
+.vagrant
