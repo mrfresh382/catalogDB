@@ -51,6 +51,9 @@ h3 {
 .padding-bottom {
 	padding-bottom: 30px;
 }
+.padding-left {
+	padding-left: 120px;
+}
 .margin-right {
 	margin-right: 30px;
 }
@@ -78,16 +81,16 @@ h3 {
 .glyphicon {
 	margin-right: 10px;
 }
-.top-menu {
+.top-list {
 	padding-top: 30px;
 	padding-bottom: 30px;
 }
-.top-menu p {
+.top-list p {
 	font-family: Audiowide;
 	margin-bottom: 0;
 	line-height: 16px;
 }
-.top-menu a {
+.top-list a {
 	font-family: Audiowide;
 	margin-bottom: 0;
 	line-height: 16px;
@@ -112,7 +115,7 @@ h3 {
 	background-repeat: no-repeat;
 	background-size: cover;
 }
-.banner.menu {
+.banner.list {
 	height: 150px;
 	background-color: #E1E17F;
 }
@@ -123,15 +126,15 @@ h3 {
 .banner h1 {
 	margin: 45px 0;
 }
- .restaurant-list {
+ .category-list {
  	background-color: #F0F0F0;
  	padding: 20px;
-u }
- .restaurant-list:hover {
+ }
+ .category-list:hover {
  	background-color: #e1e17f;
  	padding: 20px;
 }
-.menu-item {
+.list-item {
 	font-family: arial, sans-serif;
 	background: #F0F0F0;
 	padding: 20px;
@@ -139,7 +142,7 @@ u }
 	margin-left: -20px;
 
 }
-.menu-price {
+.list-price {
 	font-family: Audiowide;
 	font-weight: 900;
 }
@@ -170,4 +173,13 @@ u }
 	list-style-type: none;
 	text-align: center;
 
+}
+
+.item{
+	padding-left: 50px;
+	display: none;
+}
+
+ul{
+	margin: 15px;
 }

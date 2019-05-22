@@ -1,6 +1,6 @@
 {% extends "main.html" %}
 {% block content %}
-	<div class="row top-menu">
+	<div class="row top-list">
 		<div class="col-md-10"></div>
 		<div class="col-md-2 text-right">
 			<a href="{{url_for('showLogin')}}">Click Here to Log in </a>
@@ -40,14 +40,41 @@
 		<div class="col-md-1"></div>
 	</div>
 	{% for c in category %}
-		<a href = "{{url_for('showList', category_id = c.id)}}">
+		<a class="category" href="{{url_for('showList', category_id = c.id)}}">
 			<div class="row">
 				<div class="col-md-1"></div>
-					<div class="col-md-10 restaurant-list">
+					<div class="col-md-10 category-list">
 						<h3>{{c.name}}</h3>
 					</div>
 				<div class="col-md-1"></div>
 			</div>
 		</a>
+		{% set  list = listOfItemNames[loop.index0] %} 
+		<ul class="item padding-left">
+				{% for name in list %}
+				
+				
+					<li>{{name}}</li>
+				
+
+			{% endfor %}
+			{# This for Loop will print out each item in each category #}
+	
+		</ul>
 	{% endfor %}
+
+	<div class="padding-bottom"></div>
+	
+
+	<script>
+		$(document).ready(function() {
+			$(".category").hover(function() {
+				$(this).next().slideDown();
+			}, 
+			function()
+			{
+				$(this).next().slideUp();
+			});
+		});
+	</script>
 {% endblock %}

@@ -1,5 +1,3 @@
-
-    
 {% extends "main.html" %}
 {% block content %}
 {% include "publicheader.html" %}
@@ -7,7 +5,7 @@
 	<div class="row divider green">
 		<div class="col-md-12"></div>
 	</div>
-	<div class="row banner menu">
+	<div class="row banner list">
 		<div class="col-md-11 col-md-offset-1 padding-none">
 			<h1>{{ category.name }}
 			<figure class="creator">
@@ -45,10 +43,10 @@
 				
 					{% for i in items %}
 						
-							<div class="menu-item">
+							<div class="list-item">
 								<h3>{{i.name}}</h3>
 								<p>{{i.description}}</p>
-								<p class="menu-price">{{i.price}}</p>
+								<p class="list-price">{{i.price}}</p>
 								
 							</div>
 						
