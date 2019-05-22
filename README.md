@@ -1,60 +1,85 @@
-# OAuth2.0
-Starter Code for Auth&amp;Auth course
-# Installing the Vagrant VM for ud330 - Authentication & Authorization
+# Catalog App Project
+Submitted by Doug McDonald for Udacity Full Stack Nanodegree.
+I submitted the files directly, but kept versions on GitHub for backup and future work to implement a project portfolio. This is a website for a fictional general store at the Big Bend National Park.
 
-**Note: If you already have a vagrant machine installed from previous Udacity courses skip to the 'Fetch the Source Code and VM Configuration' section**
+## System Specs
+- Python 2.7.13, Vagrant 2.2.2, VirtualBox 5.2.2
+- System Specs: Windows 7, 64 bit
+- Used GitBash as the terminal, Windows Powershell 5.1
+- Used VM provided "OAuth" Ubuntu 16.04
+- Code checked with PEP8 'pycodestyle'
 
-In Lessons 2,3 and 4 of this course, you'll use a virtual machine (VM) to run a web server and a web app that uses it. The VM is a Linux system that runs on top of your own machine.  You can share files easily between your computer and the VM.
+## Getting Started
+### Prerequisites 
+A Google account and GitHub account are required for this project to have full permissions for CRUD on the webpage. A unique client secret token is required to operate the login and logout page. The login.html file will need to be updated prior to running the project for full functionality. Some knowledge of Python 2 library, Flask, and Jinja is required to manipulate the Python , HTML, and CSS files. *** I included some Javascript /JQuery also.
 
-We're using the Vagrant software to configure and manage the VM. Here are the tools you'll need to install to get it running:
+### Setup
+I used the Udacity provided 'OAuth' VM for this project. It can be cloned from the OAuth course on Github @ 'github.com/udacity/OAuth2.0' Please follow the instructions on this lesson to install the VM. A shell is needed to operate this app. 
 
-### Git
+1. Use GitBash Shell and `cd` to the vagrant directory 
+2. Start VM- `vagrant up`. This will instantiate the Ubuntu VM. The CLI messages will indicate a successful load. This takes several minutes the first time.
+3. Install Flask, Oauth2Client, HttpLib2, Requests and any other python packages on the VM. `sudo pip install python-oauth2client` and `sudo pip install python-flask`.etc... You can run the python files and debug errors or try to run the `import Library` command in a Python 2 shell to test if they are installed on your VM. 
+4. Goto http://console.developers.google.com and login to your Google Account. Create a Credentials instance within the Google API & Services section. You will need the *name*,  *Client ID* and the *Client Secrets JSON file*. The name used here is 'Catalog App' ( use this to reduce overhead work). Create the OAUTH 2.0 Client and copy/paste the Name and Client ID into a text file for later use. In the edit section, download the JSON file and save to the Vagrant folder in the VM. Rename as 'client_secrets.json' to match with the code in this app. Then include your local host :
+- http://localhost:5000
+...in the section "Authorized Javascript Origins" . Also include :
+- http://localhost:5000
+- http://localhost:5000/gconnect
+- http://localhost:5000/gdisconnect
+- http://localhost:5000/login
+... in the section 'Authorized Redirect URIs'. The OAUTH client will not work without these. 
+- Note: If you reset the client secret, you have to repeat the above steps, otherwise OAuth will not work.
 
-If you don't already have Git installed, [download Git from git-scm.com.](http://git-scm.com/downloads) Install the version for your operating system.
+5. Update Login.HTML - Line 9 needs to updated with YOUR Client_ID. Overwrite the Client_ID and save the file. Steps 4 and 5 are very important, so read them in their entirety before beginning work. 
 
-On Windows, Git will provide you with a Unix-style terminal and shell (Git Bash).  
-(On Mac or Linux systems you can use the regular terminal program.)
+6. Ensure your Vagrant folder has the following files at a minimum before proceeding: 
+	- catalog-app.py 
+	- catalogDBpreLOAD.py
+	- catalogDB_setup.py
+	- client_secrets.json 
+	- Static Folder- styles.css , blank-user.gif, and top-banner.jpeg
+	- Template Folder- 
 
-You will need Git to install the configuration for the VM. If you'd like to learn more about Git, [take a look at our course about Git and Github](http://www.udacity.com/course/ud775).
+6. The existing python files will not work with the filesystem on Windows computers. After research on the Udacity Knowledge forum and StackOverflow, I had to perform this one-time conversion to ensure there were no errors on execution. Install the app 'Dos2Unix' on the VM `sudo apt-get install dos2unix`. Then cd into the vagrant directory with the 3 python files. Execute `dos2unix catalog-app.py` and `dos2unix ...` for the other 2 files. There should be no errors. If you have a different VM, then you may need to troubleshoot the 'shebang' line for each file prior to running the app.
+ 
+### User Guide for Udacity Grader and General Public
 
-### VirtualBox
+1. Use shell and cd to the vagrant directory 
+2. Open VM- `vagrant up`
+3. SSH into VM- `vagrant ssh`
+4. Once SSHed into VM type `cd /vagrant`
+5. From this folder you can run the project files, Static, and Template folder. Check to ensure they are accessible by executing `ls` command. If they are not viewable, check that you are in the '/vagrant' folder, then proceed with troubleshooting. 
+6. Execute python file within VM `python catalogDB_setup.py`. This will establish a blank SQLite database for the web app. 
+7. (Optional) Execute `python catalogDBpreLOAD.py` . This will add some info in the database for testing and viewing in the webpage. 
+8. Execute `python catalog-app.py` This will start the web app on port 5000 on your local machine. Visit http://localhost:5000 on either Firefox or Chrome to view the home page. Some output messages are visible on the shell. To close App, enter 'CTRL-C' on the keyboard to terminate.
+9. (Optional) For more advanced debug, open a seperate shell and use NCAT to view all HTTP requests. 
+```
+ncat -l 5000
+```
 
-VirtualBox is the software that actually runs the VM. [You can download it from virtualbox.org, here.](https://www.virtualbox.org/wiki/Downloads)  Install the *platform package* for your operating system.  You do not need the extension pack or the SDK. You do not need to launch VirtualBox after installing it.
+## Notes/Issues/Bugs
+- I had to update Virtual Box and Windows Management Framework 5.1 A.k.a. Powershell 5.1.
+- In Sublime, I had to change the 'Tabs' to 'Spaces', this cleared out the numerous PEP warnings. 
+- Google OAuth does not work with Microsoft Internet Explorer for me. However, the webapp works in public mode. I did not have time to troubleshot this issue. Please post a solution on GitHub or explore the web for a solution. 
+- Ensure you have a **graceful shutdown** of vagrant instance before you shutdown or restart your OS. Use command `vagrant halt` to prevent corrupting the news database and vagrant instance. Despite this, the Vagrant instance seemed to occasionally get corrupt. 
 
-**Ubuntu 14.04 Note:** If you are running Ubuntu 14.04, install VirtualBox using the Ubuntu Software Center, not the virtualbox.org web site. Due to a [reported bug](http://ubuntuforums.org/showthread.php?t=2227131), installing VirtualBox from the site may uninstall other software you need.
+## Design Notes
+### GUI
+I decided to "Love" the framework provided by Udacity and make some minor tweaks to the HTML layout and CSS. I made GUI updates throughout the project, while constantly testing for functionality. I added Login and Logout links in the appropriate places. Then I ensured that site navigation was functional. 
 
-### Vagrant
+### OAuth
+The first thing I did was follow along with the lessons and work to get my OAuth login and logout working.
 
-Vagrant is the software that configures the VM and lets you share files between your host computer and the VM's filesystem.  [You can download it from vagrantup.com.](https://www.vagrantup.com/downloads) Install the version for your operating system.
+### Catalog DB
+I refactored the database_setup.py file from the lesson to create catalogDB_setup.py. Each category is a section of the store. Each item, is an item sold at the store. I then created catalogDBpreLOAD.py to load dummy data into the database for additional testing. I tested by using 2 different Google accounts to ensure CRUD functions worked as desired. 
 
-**Windows Note:** The Installer may ask you to grant network permissions to Vagrant or make a firewall exception. Be sure to allow this.
+### JQuery and Drop Down lists
+I added JQuery to the Main page so that the user can preview category items before clicking on each category individually. 
 
-## Fetch the Source Code and VM Configuration
+## Built With
+- Sublime Text
 
-**Windows:** Use the Git Bash program (installed with Git) to get a Unix-style terminal.  
-**Other systems:** Use your favorite terminal program.
+## Author
+[mrfresh382](https://github.com/mrfresh382)
 
-From the terminal, run:
-
-    git clone https://github.com/udacity/OAuth2.0 oauth
-
-This will give you a directory named **oauth** complete with the source code for the flask application, a vagrantfile, and a bootstrap.sh file for installing all of the necessary tools. 
-
-## Run the virtual machine!
-
-Using the terminal, change directory to oauth (**cd oauth**), then type **vagrant up** to launch your virtual machine.
-
-
-## Running the Restaurant Menu App
-Once it is up and running, type **vagrant ssh**. This will log your terminal into the virtual machine, and you'll get a Linux shell prompt. When you want to log out, type **exit** at the shell prompt.  To turn the virtual machine off (without deleting anything), type **vagrant halt**. If you do this, you'll need to run **vagrant up** again before you can log into it.
-
-
-Now that you have Vagrant up and running type **vagrant ssh** to log into your VM.  change to the /vagrant directory by typing **cd /vagrant**. This will take you to the shared folder between your virtual machine and host machine.
-
-Type **ls** to ensure that you are inside the directory that contains project.py, database_setup.py, and two directories named 'templates' and 'static'
-
-Now type **python database_setup.py** to initialize the database.
-
-Type **python lotsofmenus.py** to populate the database with restaurants and menu items. (Optional)
-
-Type **python project.py** to run the Flask web server. In your browser visit **http://localhost:5000** to view the restaurant menu app.  You should be able to view, add, edit, and delete menu items and restaurants.
+## Acknowledgments
+Much of the OAuth functionality was provided by Lorenzo Brown and the Udacity staff. Udacity's code can be found in the lessons and on [GitHub](https://github.com/udacity/OAuth2.0)
